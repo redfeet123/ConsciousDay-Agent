@@ -67,3 +67,6 @@ if submitted:
 if "last_response" in st.session_state:
     st.subheader("AI Reflection & Strategy")
     st.markdown(st.session_state.last_response, unsafe_allow_html=True)
+
+    if st.button("🔄 Clear Response"):
+        del st.session_state.last_response
