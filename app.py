@@ -62,7 +62,12 @@ if submitted:
     formatted_date = today.strftime("%d/%m/%Y")
     st.success(f"Entry #{entry_id} saved for {formatted_date}")
 
+
 if "last_response" in st.session_state:
     st.subheader("AI Reflection & Strategy")
     st.markdown(st.session_state.last_response, unsafe_allow_html=True)
+
+
+if not submitted and "last_response" in st.session_state:
+    del st.session_state["last_response"]
 
