@@ -31,7 +31,7 @@ if "response_cleared" not in st.session_state:
 with st.form("reflection_form"):
     journal = st.text_area("Morning Journal", height=150)
     dream = st.text_area("Dream", height=100)
-    intention = st.text_input("Intention of the Day")
+    intention = st.text_area("Intention of the Day")
     priorities = st.text_area("Top 3 Priorities of the Day (comma or newline-separated)")
 
     submitted = st.form_submit_button("Generate Reflection & Strategy")
