@@ -68,3 +68,6 @@ if "last_response" in st.session_state:
 
     if st.button("🔄 Clear Response"):
         del st.session_state.last_response
+        st.experimental_rerun()
+
+        
