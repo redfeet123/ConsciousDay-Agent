@@ -34,7 +34,7 @@ with st.form("reflection_form"):
 
     submitted = st.form_submit_button("Generate Reflection & Strategy")
 
-# Submit button logic
+
 if submitted:
     if not any([journal.strip(), dream.strip(), intention.strip(), priorities.strip()]):
         st.warning("Please fill in at least one field.")
@@ -43,12 +43,12 @@ if submitted:
     with st.spinner("Thinking..."):
         try:
             response = run_agent(journal, intention, dream, priorities)
-            st.session_state.last_response = response  # Save in session for display
+            st.session_state.last_response = response  
         except Exception as e:
             st.error(f"Agent failed: {e}")
             st.stop()
 
-    # ✅ Save to DB (this is what stores it in history)
+    
     entry_id = insert_entry({
         "date": today.isoformat(),
         "journal": journal,
