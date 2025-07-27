@@ -42,19 +42,21 @@ if submitted:
 
     with st.spinner("Thinking..."):
         try:
-            st.session_state.last_response = run_agent(journal, intention, dream, priorities)
+            response = run_agent(journal, intention, dream, priorities)
+            st.session_state.last_response = response  # Save in session for display
         except Exception as e:
             st.error(f"Agent failed: {e}")
             st.stop()
 
+    # ✅ Save to DB (this is what stores it in history)
     entry_id = insert_entry({
         "date": today.isoformat(),
         "journal": journal,
         "intention": intention,
         "dream": dream,
         "priorities": priorities,
-        "reflection": st.session_state.last_response,
-        "strategy": st.session_state.last_response,
+        "reflection": response,
+        "strategy": response,
     })
 
     formatted_date = today.strftime("%d/%m/%Y")
