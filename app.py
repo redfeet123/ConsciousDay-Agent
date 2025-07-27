@@ -37,7 +37,7 @@ with st.form("reflection_form"):
     submitted = st.form_submit_button("Generate Reflection & Strategy")
 
 # Process form submission only if response not cleared
-if submitted and not st.session_state.get("response_cleared", False):
+if submitted:
     if not any([journal.strip(), dream.strip(), intention.strip(), priorities.strip()]):
         st.warning("Please fill in at least one field.")
         st.stop()
