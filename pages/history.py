@@ -2,13 +2,13 @@ import streamlit as st
 from db.db import get_dates, get_by_date
 from datetime import datetime
 from auth import check_auth
-check_auth()
+#check_auth()
 
 
 # temporary for no login demo mode
-# if "authenticated" not in st.session_state:
-#     st.session_state.authenticated = True
-#     st.session_state.username = "demo"
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = True
+    st.session_state.username = "demo"
 
 st.set_page_config(page_title="History")
 st.caption(f"You are logged in as: **{st.session_state.username}**")
