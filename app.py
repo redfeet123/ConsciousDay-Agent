@@ -34,6 +34,7 @@ with st.form("reflection_form"):
 
     submitted = st.form_submit_button("Generate Reflection & Strategy")
 
+# Submit button logic
 if submitted:
     if not any([journal.strip(), dream.strip(), intention.strip(), priorities.strip()]):
         st.warning("Please fill in at least one field.")
@@ -46,9 +47,10 @@ if submitted:
             st.error(f"Agent failed: {e}")
             st.stop()
 
-    # ✅ Store in session state
+    # Store in session state for display
     st.session_state.last_response = response
 
+    # Save to DB
     entry_id = insert_entry({
         "date": today.isoformat(),
         "journal": journal,
@@ -62,12 +64,6 @@ if submitted:
     formatted_date = today.strftime("%d/%m/%Y")
     st.success(f"Entry #{entry_id} saved for {formatted_date}")
 
-
 if "last_response" in st.session_state:
     st.subheader("AI Reflection & Strategy")
     st.markdown(st.session_state.last_response, unsafe_allow_html=True)
-
-
-if not submitted and "last_response" in st.session_state:
-    del st.session_state["last_response"]
-
