@@ -42,7 +42,7 @@ if submitted:
 
     with st.spinner("Thinking..."):
         try:
-            response = run_agent(journal, intention, dream, priorities)
+            st.session_state.last_response = run_agent(journal, intention, dream, priorities)
         except Exception as e:
             st.error(f"Agent failed: {e}")
             st.stop()
