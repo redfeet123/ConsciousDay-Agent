@@ -47,7 +47,7 @@ if submitted:
             st.stop()
 
     st.subheader("AI Reflection & Strategy")
-    st.markdown()
+    st.markdown(response, unsafe_allow_html=True)
 
     entry_id = insert_entry({
         "date": today.isoformat(),
