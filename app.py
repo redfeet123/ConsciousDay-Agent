@@ -71,5 +71,4 @@ if "last_response" in st.session_state:
 
     if st.button("🔄 Clear Response"):
         del st.session_state.last_response
-        st.session_state["response_cleared"] = True  # mark as cleared
-        st.experimental_rerun()  # force immediate rerun to clear UI
+        st.session_state["response_cleared"] = True  # mark as cleared"
