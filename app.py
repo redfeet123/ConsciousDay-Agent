@@ -14,7 +14,6 @@ if "authenticated" not in st.session_state:
     st.session_state.authenticated = True
     st.session_state.username = "demo"
 
-
 load_dotenv()
 if "TOGETHER_API_KEY" in st.secrets:
     os.environ["TOGETHER_API_KEY"] = st.secrets["TOGETHER_API_KEY"]
@@ -25,17 +24,7 @@ st.title("Conscious Day Agent")
 
 init_db()
 
-with st.form("reflection_form"):
-    # today = st.date_input("Date", value=date.today())
-    journal = st.text_area("Morning Journal", height=150)
-    dream = st.text_area("Dream", height=100)
-    intention = st.text_input("Intention of the Day")
-    priorities = st.text_area("Top 3 Priorities of the Day (comma or newline-separated)")
-
-    submitted = st.form_submit_button("Generate Reflection & Strategy")
-
-
-# Add this near the top, right after imports or session_state setup (before form)
+# Initialize the cleared flag once
 if "response_cleared" not in st.session_state:
     st.session_state["response_cleared"] = False
 
@@ -47,7 +36,7 @@ with st.form("reflection_form"):
 
     submitted = st.form_submit_button("Generate Reflection & Strategy")
 
-# Only generate response if form submitted and response not cleared
+# Process form submission only if response not cleared
 if submitted and not st.session_state.get("response_cleared", False):
     if not any([journal.strip(), dream.strip(), intention.strip(), priorities.strip()]):
         st.warning("Please fill in at least one field.")
@@ -57,7 +46,7 @@ if submitted and not st.session_state.get("response_cleared", False):
         try:
             response = run_agent(journal, intention, dream, priorities)
             st.session_state.last_response = response
-            st.session_state["response_cleared"] = False  # reset flag after generating
+            st.session_state["response_cleared"] = False  # reset cleared flag
         except Exception as e:
             st.error(f"Agent failed: {e}")
             st.stop()
@@ -75,7 +64,7 @@ if submitted and not st.session_state.get("response_cleared", False):
     formatted_date = today.strftime("%d/%m/%Y")
     st.success(f"Entry #{entry_id} saved for {formatted_date}")
 
-# Show AI response and Clear button only if last_response exists
+# Show the last AI response and clear button
 if "last_response" in st.session_state:
     st.subheader("AI Reflection & Strategy")
     st.markdown(st.session_state.last_response, unsafe_allow_html=True)
@@ -83,5 +72,3 @@ if "last_response" in st.session_state:
     if st.button("🔄 Clear Response"):
         del st.session_state.last_response
         st.session_state["response_cleared"] = True  # mark as cleared
-
-        
