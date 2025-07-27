@@ -10,7 +10,7 @@ from auth import check_auth
 today = date.today()  
 
 # temporary for no login demo mode
- if "authenticated" not in st.session_state:
+if "authenticated" not in st.session_state:
     st.session_state.authenticated = True
     st.session_state.username = "demo"
 
