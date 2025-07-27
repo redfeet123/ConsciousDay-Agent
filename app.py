@@ -35,7 +35,20 @@ with st.form("reflection_form"):
     submitted = st.form_submit_button("Generate Reflection & Strategy")
 
 
-if submitted:
+# Add this near the top, right after imports or session_state setup (before form)
+if "response_cleared" not in st.session_state:
+    st.session_state["response_cleared"] = False
+
+with st.form("reflection_form"):
+    journal = st.text_area("Morning Journal", height=150)
+    dream = st.text_area("Dream", height=100)
+    intention = st.text_input("Intention of the Day")
+    priorities = st.text_area("Top 3 Priorities of the Day (comma or newline-separated)")
+
+    submitted = st.form_submit_button("Generate Reflection & Strategy")
+
+# Only generate response if form submitted and response not cleared
+if submitted and not st.session_state.get("response_cleared", False):
     if not any([journal.strip(), dream.strip(), intention.strip(), priorities.strip()]):
         st.warning("Please fill in at least one field.")
         st.stop()
@@ -43,12 +56,12 @@ if submitted:
     with st.spinner("Thinking..."):
         try:
             response = run_agent(journal, intention, dream, priorities)
-            st.session_state.last_response = response  
+            st.session_state.last_response = response
+            st.session_state["response_cleared"] = False  # reset flag after generating
         except Exception as e:
             st.error(f"Agent failed: {e}")
             st.stop()
 
-    
     entry_id = insert_entry({
         "date": today.isoformat(),
         "journal": journal,
@@ -62,12 +75,13 @@ if submitted:
     formatted_date = today.strftime("%d/%m/%Y")
     st.success(f"Entry #{entry_id} saved for {formatted_date}")
 
+# Show AI response and Clear button only if last_response exists
 if "last_response" in st.session_state:
     st.subheader("AI Reflection & Strategy")
     st.markdown(st.session_state.last_response, unsafe_allow_html=True)
 
     if st.button("🔄 Clear Response"):
         del st.session_state.last_response
-        st.experimental_rerun()
+        st.session_state["response_cleared"] = True  # mark as cleared
 
         
