@@ -46,8 +46,8 @@ if submitted:
             st.error(f"Agent failed: {e}")
             st.stop()
 
-    st.subheader("AI Reflection & Strategy")
-    st.markdown(response, unsafe_allow_html=True)
+    # ✅ Store in session state
+    st.session_state.last_response = response
 
     entry_id = insert_entry({
         "date": today.isoformat(),
@@ -61,3 +61,8 @@ if submitted:
 
     formatted_date = today.strftime("%d/%m/%Y")
     st.success(f"Entry #{entry_id} saved for {formatted_date}")
+
+if "last_response" in st.session_state:
+    st.subheader("AI Reflection & Strategy")
+    st.markdown(st.session_state.last_response, unsafe_allow_html=True)
+
