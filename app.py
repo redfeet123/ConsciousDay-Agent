@@ -6,13 +6,13 @@ from datetime import date
 from agent.agent import run_agent
 from db.db import init_db, insert_entry
 from auth import check_auth
-check_auth()
+#check_auth()
 today = date.today()  
 
 # temporary for no login demo mode
-# if "authenticated" not in st.session_state:
-#     st.session_state.authenticated = True
-#     st.session_state.username = "demo"
+ if "authenticated" not in st.session_state:
+    st.session_state.authenticated = True
+    st.session_state.username = "demo"
 
 
 load_dotenv()
