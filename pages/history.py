@@ -39,7 +39,17 @@ entries = get_by_date(selected)
 for entry in entries:
     formatted_date = datetime.strptime(entry["date"], "%Y-%m-%d").strftime("%d/%m/%Y")
 
-    with st.expander(f"Entry #{entry['id']} – {formatted_date}"):
+    col1, col2 = st.columns([10, 1])  # Wider expander, smaller delete button
+
+    with col1:
+        expander = st.expander(f"Entry #{entry['id']} – {formatted_date}")
+    with col2:
+        if st.button("🗑️", key=f"delete_{entry['id']}"):
+            delete_entry(entry["id"])
+            st.success(f"Entry #{entry['id']} deleted.")
+            st.experimental_rerun()
+
+    with expander:
         st.markdown(f"**Intention:**\n{entry['intention']}")
         st.markdown(f"**Priorities:**\n{entry['priorities']}")
         st.markdown(f"**Journal:**\n{entry['journal']}")
@@ -48,9 +58,4 @@ for entry in entries:
         st.markdown("### Reflection & Strategy")
         st.markdown(entry['reflection'], unsafe_allow_html=True)
 
-        # Add delete button
-        if st.button(f"🗑️ Delete Entry #{entry['id']}", key=f"delete_{entry['id']}"):
-            delete_entry(entry["id"])
-            st.success("Entry deleted. Please refresh the page.")
-            st.experimental_rerun()
 
