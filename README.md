@@ -7,14 +7,7 @@ ConsciousDay is a journaling web application that combines mindful self-reflecti
 ## Table of Contents
 
 - [Features](#features)
-- [Project Structure](#project-structure)
 - [Installation](#installation)
-- [API Key Setup](#api-key-setup)
-- [Running the App](#running-the-app)
-- [Sample Input](#sample-input)
-- [Deployment Guide](#deployment-guide)
-- [Acceptance Criteria](#acceptance-criteria)
-- [Credits](#credits)
 
 ---
 
