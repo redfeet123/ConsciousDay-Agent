@@ -1,5 +1,5 @@
 import streamlit as st
-from db.db import get_dates, get_by_date
+from db.db import get_dates, get_by_date, delete_entry
 from datetime import datetime
 from auth import check_auth
 # check_auth()
@@ -45,5 +45,12 @@ for entry in entries:
         st.markdown(f"**Journal:**\n{entry['journal']}")
         st.markdown(f"**Dream:**\n{entry['dream']}")
         st.markdown("---")
-        st.markdown("###Reflection & Strategy")
-        st.markdown(entry['reflection'], unsafe_allow_html=True)  # Ensures formatting is preserved
+        st.markdown("### Reflection & Strategy")
+        st.markdown(entry['reflection'], unsafe_allow_html=True)
+
+        # Add delete button
+        if st.button(f"🗑️ Delete Entry #{entry['id']}", key=f"delete_{entry['id']}"):
+            delete_entry(entry["id"])
+            st.success("Entry deleted. Please refresh the page.")
+            st.experimental_rerun()
+
