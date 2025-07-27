@@ -58,3 +58,8 @@ def get_by_date(date: str) -> List[Dict]:
         """, (date,))
         keys = ["id", "date", "journal", "intention", "dream", "priorities", "reflection", "strategy"]
         return [dict(zip(keys, row)) for row in rows]
+        
+def delete_entry(entry_id: int) -> None:
+    with get_conn() as conn:
+        conn.execute("DELETE FROM entries WHERE id = ?", (entry_id,))
+        conn.commit()
