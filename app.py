@@ -47,18 +47,14 @@ if submitted:
             st.error(f"Agent failed: {e}")
             st.stop()
 
-    # Store in session state for display
-    st.session_state.last_response = response
-
-    # Save to DB
     entry_id = insert_entry({
         "date": today.isoformat(),
         "journal": journal,
         "intention": intention,
         "dream": dream,
         "priorities": priorities,
-        "reflection": response,
-        "strategy": response,
+        "reflection": st.session_state.last_response,
+        "strategy": st.session_state.last_response,
     })
 
     formatted_date = today.strftime("%d/%m/%Y")
