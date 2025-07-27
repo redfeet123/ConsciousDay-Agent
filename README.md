@@ -1,78 +1,59 @@
-🧘 ConsciousDay – AI-Powered Daily Reflection App
-ConsciousDay is a journaling web app that combines mindful reflection with AI-generated insights. Built using Streamlit, LangChain, and Together AI, the app helps users gain clarity, focus, and intentionality each day through structured journaling and intelligent reflection.
+# ConsciousDay – AI-Powered Daily Reflection App
 
-🚀 Features:
-📝 Morning Journal: Input your thoughts, dreams, goals, and intentions
-🤖 AI-Powered Reflections: LangChain agent analyzes your input using Together AI
-💡 Daily Strategy Output: Get personalized advice, energy insights, and suggested strategy
-📅 View Past Entries: Browse journal entries using a calendar-based history tab
-🔐 Username & Password Login: Protect your journal data using Streamlit session state
-💾 SQLite Storage: Local persistence of all entries
-🎨 Clean UI: Responsive layout, readable fonts, and intuitive design
+ConsciousDay is a journaling web application that combines mindful self-reflection with intelligent insights. Built using Streamlit, LangChain, and Together AI, it allows users to write daily journal entries and receive AI-generated feedback, strategies, and personalized guidance.
 
-🗂️ Project Structure
-graphql
-Copy
-Edit
-consciousday/
-├── agent/                # LangChain agent logic
-│   └── agent.py
-├── auth.py               # Simple login system
-├── db/                   # Database logic
-│   ├── db.py
-│   └── schema.sql
-├── pages/                # Streamlit multipage files
-│   └── 1_📅_History.py
-├── app.py                # Main app UI
-├── requirements.txt
-└── .streamlit/
-    └── secrets.toml      # API keys (not pushed to GitHub)
+---
 
-📦 Installation
+## Table of Contents
 
-✅ Prerequisites
-Python 3.10 or higher
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [API Key Setup](#api-key-setup)
+- [Running the App](#running-the-app)
+- [Sample Input](#sample-input)
+- [Deployment Guide](#deployment-guide)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Credits](#credits)
 
-Together AI API Key (get it from https://api.together.ai)
+---
 
-📥 Clone the Repo
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/conscious-day.git
-cd conscious-day
+## Features
 
-🧪 Create Virtual Environment
-bash
-Copy
-Edit
+- Structured journaling with intention, priorities, thoughts, and dream input
+- AI-generated reflection summary and suggested daily strategy
+- View history using a calendar date picker
+- Simple login system with Streamlit session state
+- Stores data in SQLite database
+- Clean and minimal user interface using Streamlit
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Python 3.10 or higher
+- Together AI API key
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/consciousday.git
+cd consciousday
+
+--create venv
+
 python -m venv venv
-venv\Scripts\activate   # On Windows
-source venv/bin/activate   # On macOS/Linux
+venv\Scripts\activate        # For Windows
+# OR
+source venv/bin/activate     # For macOS/Linux
 
-📦 Install Requirements
-bash
-Copy
-Edit
+--install dependencies
+
 pip install -r requirements.txt
 
-🔐 Set Up API Key
-Inside the .streamlit folder, create a file called secrets.toml:
+--run
 
-toml
-Copy
-Edit
-[together]
-api_key = "your_together_api_key"
-
-▶️ Run the App
-bash
-Copy
-Edit
 streamlit run app.py
-
-🌐 Live Demo
-You can access the deployed version here:
-https://yourusername-conscious-day.streamlit.app
-(Login is optional or disabled for demo purposes)
 
